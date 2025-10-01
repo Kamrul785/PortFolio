@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import prfileimg from "../assets/profile.jpg"
+import cv from "../assets/Kamrul_Hasan__CV.pdf"
 import {
   Github,
   Mail,
@@ -557,7 +558,7 @@ const Portfolio = () => {
                 View Projects
               </a>
               <a
-                href="/Kamrul_Hasan_CV.pdf"
+                href={cv}
                 download
                 className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl hover:shadow-2xl hover:shadow-green-500/50 transition-all transform hover:scale-105 flex items-center gap-2 font-semibold"
               >
