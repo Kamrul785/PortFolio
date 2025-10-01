@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import prfileimg from "../assets/profile.jpg"
 import {
   Github,
   Mail,
@@ -487,7 +488,7 @@ const Portfolio = () => {
             <div className="mb-8 inline-block">
               <div className="w-48 h-48 rounded-full mx-auto mb-6 overflow-hidden bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-1 transform hover:scale-110 transition-transform duration-500 shadow-2xl shadow-blue-500/50">
                 <img
-                  src="/src/assets/profile.jpg"
+                  src={prfileimg}
                   alt="Profile"
                   className="w-full h-full rounded-full object-cover"
                   // style={{ animation: "float 2s ease-in-out infinite" }}
