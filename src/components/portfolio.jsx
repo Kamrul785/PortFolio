@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import prfileimg from "../assets/profile.jpg"
-import cv from "../assets/Kamrul_Hasan__CV.pdf"
+import prfileimg from "../assets/profile.jpg";
+import cv from "../assets/Kamrul_Hasan__CV.pdf";
 import {
   Github,
   Mail,
@@ -29,34 +29,54 @@ const Portfolio = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [hoveredProject, setHoveredProject] = useState(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    let ticking = false;
 
-      const sections = [
-        "home",
-        "about",
-        "skills",
-        "projects",
-        "experience",
-        "contact",
-      ];
-      const current = sections.find((section) => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      if (current) setActiveSection(current);
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // Only update scrolled state if crossing the threshold
+          const shouldBeScrolled = window.scrollY > 50;
+          if (shouldBeScrolled !== scrolled) {
+            setScrolled(shouldBeScrolled);
+          }
+
+          // Update active section less frequently
+          const sections = [
+            "home",
+            "about",
+            "skills",
+            "projects",
+            "experience",
+            "contact",
+          ];
+          const current = sections.find((section) => {
+            const element = document.getElementById(section);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              return rect.top <= 100 && rect.bottom >= 100;
+            }
+            return false;
+          });
+
+          if (current && current !== activeSection) {
+            setActiveSection(current);
+          }
+
+          ticking = false;
+        });
+
+        ticking = true;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrolled, activeSection]); // Add dependencies
 
   const useCounter = (end, duration = 2000) => {
     const [count, setCount] = useState(0);
@@ -324,28 +344,6 @@ const Portfolio = () => {
       </div>
     );
   };
-
-  // const StatCard = ({ stat, index }) => {
-  //   const [count, ref] = useCounter(stat.value, 2000);
-
-  //   return (
-  //     <ScrollReveal delay={index * 100}>
-  //       <div ref={ref} className="text-center group">
-  //         <div className="flex justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
-  //           <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 group-hover:from-blue-500/30 group-hover:to-purple-500/30">
-  //             <stat.icon size={40} className="text-blue-500" />
-  //           </div>
-  //         </div>
-  //         <div className="text-5xl font-bold mb-2 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-  //           {count == 3 ? float(count+0.98) : count}
-  //           {/* {count} */}
-  //           {stat.suffix}
-  //         </div>
-  //         <div className="text-gray-500 font-medium">{stat.label}</div>
-  //       </div>
-  //     </ScrollReveal>
-  //   );
-  // };
 
   // In the StatCard component
   const StatCard = ({ stat, index }) => {
@@ -887,17 +885,11 @@ const Portfolio = () => {
             {projects.map((project, idx) => (
               <ScrollReveal key={idx} delay={idx * 100}>
                 <div
-                  className={`group relative p-8 rounded-2xl transition-all duration-500 ${
+                  className={`group relative p-8 rounded-2xl transition-transform duration-300 ease-in-out hover:scale-105 ${
                     darkMode ? "bg-gray-800/50" : "bg-white shadow-xl"
                   } backdrop-blur-sm border ${
                     darkMode ? "border-gray-700" : "border-gray-200"
                   } hover:border-blue-500/50 overflow-hidden`}
-                  style={{
-                    transform:
-                      hoveredProject === idx ? "scale(1.05)" : "scale(1)",
-                  }}
-                  onMouseEnter={() => setHoveredProject(idx)}
-                  onMouseLeave={() => setHoveredProject(null)}
                 >
                   <div
                     className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
@@ -1160,9 +1152,6 @@ const Portfolio = () => {
       >
         <p className="text-gray-400 mb-2">
           © 2025 Khandokar Kamrul Hasan. All rights reserved.
-        </p>
-        <p className="text-sm text-gray-500">
-          Built with ❤️ using React & Tailwind CSS
         </p>
       </footer>
     </div>
