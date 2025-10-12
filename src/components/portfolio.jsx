@@ -22,6 +22,11 @@ import {
   ChevronRight,
   Zap,
   Rocket,
+  TrendingUp,
+  Send,
+  User,
+  MessageSquare,
+  CheckCircle,
 } from "lucide-react";
 
 const Portfolio = () => {
@@ -29,6 +34,10 @@ const Portfolio = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [formStatus, setFormStatus] = useState("");
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const messageRef = useRef();
 
   useEffect(() => {
     let ticking = false;
@@ -260,27 +269,375 @@ const Portfolio = () => {
     Core: ["Data Structures", "Algorithms", "OOP", "Problem Solving"],
   };
 
+  const CPCard = ({ profile }) => {
+    const [isHovered, setIsHovered] = useState(false);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const cardRef = useRef(null);
+    const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+    const handleMouseMove = (e) => {
+      if (!cardRef.current) return;
+
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const tiltX = (y - centerY) / 10;
+      const tiltY = (centerX - x) / 10;
+
+      setTilt({ x: tiltX, y: tiltY });
+      setMousePosition({ x: x / rect.width, y: y / rect.height });
+    };
+
+    return (
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setTilt({ x: 0, y: 0 });
+          setIsHovered(false);
+        }}
+        className="group"
+        style={{
+          transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${
+            tilt.y
+          }deg) ${isHovered ? "scale(1.05)" : "scale(1)"}`,
+          transition: "transform 0.1s ease-out",
+        }}
+      >
+        <a
+          href={profile.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block relative p-8 rounded-2xl transition-all duration-500 hover:shadow-2xl backdrop-blur-sm border overflow-hidden"
+          style={{
+            background: darkMode
+              ? `radial-gradient(circle at ${mousePosition.x * 100}% ${
+                  mousePosition.y * 100
+                }%, rgba(59, 130, 246, 0.15), rgba(17, 24, 39, 0.8))`
+              : `radial-gradient(circle at ${mousePosition.x * 100}% ${
+                  mousePosition.y * 100
+                }%, rgba(59, 130, 246, 0.1), white)`,
+            borderColor: darkMode ? "#374151" : "#e5e7eb",
+          }}
+        >
+          {/* Animated glow effect */}
+          <div
+            className={`absolute inset-0 bg-gradient-to-br ${profile.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl`}
+          />
+
+          {/* Floating particles effect */}
+          {isHovered && (
+            <>
+              <div className="absolute top-10 right-10 w-2 h-2 bg-blue-500 rounded-full animate-ping" />
+              <div
+                className="absolute bottom-10 left-10 w-2 h-2 bg-purple-500 rounded-full animate-ping"
+                style={{ animationDelay: "0.5s" }}
+              />
+            </>
+          )}
+
+          <div className="relative z-10">
+            {/* Header with animated icon */}
+            <div className="flex items-center justify-between mb-6">
+              <div
+                className={`p-4 rounded-xl bg-gradient-to-br ${
+                  profile.color
+                } transform transition-all duration-500 ${
+                  isHovered ? "rotate-12 scale-110" : ""
+                }`}
+              >
+                <profile.icon size={32} className="text-white" />
+              </div>
+              <ExternalLink
+                size={24}
+                className={`transform transition-all duration-500 ${
+                  isHovered ? "rotate-45" : ""
+                } text-blue-500 hover:text-gray-400`}
+              />
+            </div>
+
+            {/* Profile info */}
+            <h4 className="text-2xl font-bold mb-2">{profile.name}</h4>
+            <p className="text-gray-500 mb-6 text-sm">@{profile.username}</p>
+
+            {/* Animated stats grid */}
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div
+                className={`p-4 rounded-xl transition-all duration-300 ${
+                  isHovered ? "translate-y-[-4px]" : ""
+                }`}
+                style={{
+                  backgroundColor: darkMode
+                    ? "rgba(31, 41, 55, 0.5)"
+                    : "rgba(249, 250, 251, 1)",
+                }}
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <Star className="text-yellow-500" size={16} />
+                  <span className="text-xs text-gray-500">Rating</span>
+                </div>
+                <p
+                  className={`text-xl font-bold bg-gradient-to-r ${profile.color} bg-clip-text text-transparent`}
+                >
+                  {profile.rating}
+                </p>
+              </div>
+
+              <div
+                className={`p-4 rounded-xl transition-all duration-300 ${
+                  isHovered ? "translate-y-[-4px]" : ""
+                }`}
+                style={{
+                  backgroundColor: darkMode
+                    ? "rgba(31, 41, 55, 0.5)"
+                    : "rgba(249, 250, 251, 1)",
+                }}
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingUp className="text-green-500" size={16} />
+                  <span className="text-xs text-gray-500">Max</span>
+                </div>
+                <p
+                  className={`text-xl font-bold bg-gradient-to-r ${profile.color} bg-clip-text text-transparent`}
+                >
+                  {profile.maxRating}
+                </p>
+              </div>
+            </div>
+
+            {/* Problems solved indicator */}
+            <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20">
+              <div className="flex items-center gap-2">
+                <Award size={20} className="text-blue-500" />
+                <span className="text-sm font-medium">Problems Solved</span>
+              </div>
+              <span className="text-xl font-bold">{profile.solved}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    );
+  };
+
+  // Enhanced Contact Card with React Bits-style animations
+  const ContactCard = ({ icon: Icon, title, content, href, color, delay }) => {
+    const [isHovered, setIsHovered] = useState(false);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const cardRef = useRef(null);
+    const handleMouseMove = (e) => {
+      if (!cardRef.current) return;
+
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+
+      setMousePosition({ x, y });
+    };
+
+    return (
+      <a
+        href={href}
+        ref={cardRef}
+        target="_blank"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onMouseMove={handleMouseMove}
+        className="block p-8 rounded-2xl transition-all duration-500 shadow-xl backdrop-blur-sm border text-center relative overflow-hidden group"
+        style={{
+          transform: isHovered ? "translateY(-10px)" : "translateY(0)",
+          animation: `float 3s ease-in-out infinite ${delay}s`,
+          background: isHovered
+            ? `radial-gradient(circle at ${mousePosition.x * 100}% ${
+                mousePosition.y * 100
+              }%, ${
+                color === "blue"
+                  ? "rgba(59, 130, 246, 0.1)"
+                  : color === "green"
+                  ? "rgba(34, 197, 94, 0.1)"
+                  : "rgba(147, 51, 234, 0.1)"
+              }, ${darkMode ? "rgba(17, 24, 39, 0.8)" : "white"})`
+            : darkMode
+            ? "rgba(31, 41, 55, 0.5)"
+            : "white",
+          borderColor: darkMode ? "#374151" : "#e5e7eb",
+        }}
+      >
+        {/* Animated background glow */}
+        <div
+          className={`absolute inset-0 rounded-2xl transition-opacity duration-500 ${
+            isHovered ? "opacity-20" : "opacity-0"
+          }`}
+          style={{
+            background: `radial-gradient(circle at ${mousePosition.x * 100}% ${
+              mousePosition.y * 100
+            }%, ${
+              color === "blue"
+                ? "#3b82f6"
+                : color === "green"
+                ? "#22c55e"
+                : "#9333ea"
+            }, transparent 50%)`,
+          }}
+        />
+
+        {/* Floating particles */}
+        {isHovered && (
+          <>
+            <div className="absolute top-4 right-4 w-1 h-1 bg-current rounded-full animate-ping" />
+            <div
+              className="absolute bottom-4 left-4 w-1 h-1 bg-current rounded-full animate-ping"
+              style={{ animationDelay: "0.3s" }}
+            />
+          </>
+        )}
+
+        <div className="relative z-10">
+          {/* Animated icon container */}
+          <div
+            className={`w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center transform transition-all duration-500 ${
+              isHovered ? "scale-110 rotate-12" : ""
+            }`}
+            style={{
+              background:
+                color === "blue"
+                  ? "linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.2))"
+                  : color === "green"
+                  ? "linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.2))"
+                  : "linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(126, 34, 206, 0.2))",
+            }}
+          >
+            <Icon
+              size={40}
+              className={
+                color === "blue"
+                  ? "text-blue-500"
+                  : color === "green"
+                  ? "text-green-500"
+                  : "text-purple-500"
+              }
+            />
+          </div>
+
+          <h3 className="font-bold mb-3 text-xl">{title}</h3>
+          <p className="text-sm text-gray-400 break-words">{content}</p>
+        </div>
+
+        {/* Ripple effect on hover */}
+        {isHovered && (
+          <div
+            className="absolute rounded-full border-2 border-current animate-ping"
+            style={{
+              width: "20px",
+              height: "20px",
+              left: `${mousePosition.x * 100}%`,
+              top: `${mousePosition.y * 100}%`,
+              transform: "translate(-50%, -50%)",
+              opacity: 0.3,
+            }}
+          />
+        )}
+      </a>
+    );
+  };
+
+  // Handle form submission
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    setFormStatus("sending");
+
+    const name = nameRef.current.value;
+    const email = emailRef.current.value;
+    const message = messageRef.current.value;
+
+    try {
+      // Example: simulate API call or email sending
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // Clear inputs after successful submission
+      nameRef.current.value = "";
+      emailRef.current.value = "";
+      messageRef.current.value = "";
+      console.log({ name, email, message });
+      setFormStatus("success");
+
+      // Reset form status after 3 seconds
+      setTimeout(() => setFormStatus(""), 3000);
+    } catch (error) {
+      setFormStatus("error");
+      console.error("Error submitting contact form:", error);
+
+      // Show error for 3 seconds, then clear
+      setTimeout(() => setFormStatus(""), 3000);
+    }
+  };
+
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // };
+
+  // const cpProfiles = [
+  //   {
+  //     name: "Codeforces",
+  //     username: "Kamrul526785",
+  //     rating: "1000+",
+  //     link: "https://codeforces.com/profile/Kamrul526785",
+  //     color: "from-blue-500 to-cyan-500",
+  //   },
+  //   {
+  //     name: "CodeChef",
+  //     username: "kamrulkhan5267",
+  //     rating: "2★",
+  //     link: "https://www.codechef.com/users/kamrulkhan5267",
+  //     color: "from-yellow-500 to-orange-500",
+  //   },
+  //   {
+  //     name: "LeetCode",
+  //     username: "kamrul08",
+  //     rating: "Active",
+  //     link: "https://leetcode.com/kamrul08",
+  //     color: "from-orange-500 to-red-500",
+  //   },
+  // ];
+
   const cpProfiles = [
     {
       name: "Codeforces",
       username: "Kamrul526785",
-      rating: "1000+",
+      rating: 1000,
+      maxRating: 1030,
+      solved: 500,
       link: "https://codeforces.com/profile/Kamrul526785",
-      color: "from-blue-500 to-cyan-500",
+      color: "from-blue-500 via-blue-600 to-cyan-500",
+      icon: Code,
     },
     {
       name: "CodeChef",
       username: "kamrulkhan5267",
       rating: "2★",
+      maxRating: 1477,
+      solved: 150,
       link: "https://www.codechef.com/users/kamrulkhan5267",
-      color: "from-yellow-500 to-orange-500",
+      color: "from-amber-500 via-orange-500 to-red-500",
+      icon: Trophy,
     },
     {
       name: "LeetCode",
       username: "kamrul08",
       rating: "Active",
+      maxRating: 150,
+      solved: 100,
       link: "https://leetcode.com/kamrul08",
-      color: "from-orange-500 to-red-500",
+      color: "from-orange-400 via-red-500 to-pink-500",
+      icon: Zap,
     },
   ];
 
@@ -774,6 +1131,25 @@ const Portfolio = () => {
                 Competitive Programming
               </h3>
             </ScrollReveal>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {cpProfiles.map((profile, idx) => (
+                <ScrollReveal key={idx} delay={idx * 100}>
+                  <CPCard profile={profile} />
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+          {/* cp old section  */}
+          {/* <div className="mt-16">
+            <ScrollReveal>
+              <h3 className="text-3xl font-bold mb-8 flex items-center gap-3 justify-center">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-yellow-500/20 to-red-500/20">
+                  <Trophy className="text-yellow-500" size={32} />
+                </div>
+                Competitive Programming
+              </h3>
+            </ScrollReveal>
             <div className="grid md:grid-cols-3 gap-8">
               {cpProfiles.map((profile, idx) => (
                 <ScrollReveal key={idx} delay={idx * 100}>
@@ -820,7 +1196,7 @@ const Portfolio = () => {
                 solved across multiple online judges
               </p>
             </ScrollReveal>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -1037,7 +1413,7 @@ const Portfolio = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4">
+      {/* <section id="contact" className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <h2 className="text-5xl font-bold mb-8 text-center bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
@@ -1137,6 +1513,197 @@ const Portfolio = () => {
               >
                 <Trophy size={32} />
               </a>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section> */}
+
+      {/* Enhanced Get In Touch Section */}
+      <section id="contact" className="py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <ScrollReveal>
+            <h2 className="text-5xl font-bold mb-4 text-center bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+              Get In Touch
+            </h2>
+            <p className="text-xl text-gray-400 text-center mb-16 max-w-3xl mx-auto">
+              Ready to collaborate on your next project? Let's connect and
+              create something amazing together!
+            </p>
+          </ScrollReveal>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <ScrollReveal delay={100}>
+              <ContactCard
+                icon={Mail}
+                title="Email"
+                content="kamrulkhan526785@gmail.com"
+                href="mailto:kamrulkhan526785@gmail.com"
+                color="blue"
+                delay={0}
+              />
+            </ScrollReveal>
+
+            <ScrollReveal delay={200}>
+              <ContactCard
+                icon={Phone}
+                title="Phone"
+                content="+88 01747333257"
+                href="tel:+8801747333257"
+                color="green"
+                delay={0.5}
+              />
+            </ScrollReveal>
+
+            <ScrollReveal delay={300}>
+              <ContactCard
+                icon={MapPin}
+                title="Location"
+                content="Chattogram, Bangladesh"
+                href="https://maps.google.com/?q=Chattogram,Bangladesh"
+                color="purple"
+                delay={1}
+              />
+            </ScrollReveal>
+
+            <ScrollReveal delay={400}>
+              <ContactCard
+                icon={Github}
+                title="GitHub"
+                content="github.com/Kamrul785"
+                href="https://github.com/Kamrul785"
+                color="blue"
+                delay={1.5}
+              />
+            </ScrollReveal>
+          </div>
+
+          {/* Enhanced Contact Form */}
+          <ScrollReveal delay={500}>
+            <div className="max-w-2xl mx-auto">
+              <div
+                className={`p-8 rounded-2xl shadow-2xl backdrop-blur-sm border ${
+                  darkMode
+                    ? "bg-gray-800/50 border-gray-700"
+                    : "bg-white border-gray-200"
+                }`}
+              >
+                <h3 className="text-2xl font-bold mb-6 text-center">
+                  Send a Message
+                </h3>
+
+                <form onSubmit={handleFormSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="group">
+                      <label className="block text-sm font-medium mb-2">
+                        Name
+                      </label>
+                      <div className="relative">
+                        <User
+                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                          size={20}
+                        />
+                        <input
+                          type="text"
+                          name="name"
+                          // value={formData.name}
+                          // onChange={handleInputChange}
+                          ref={nameRef}
+                          required
+                          className={`w-full pl-12 pr-4 py-3 rounded-xl border transition-all focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                            darkMode
+                              ? "bg-gray-700 border-gray-600 text-white"
+                              : "bg-gray-50 border-gray-300"
+                          }`}
+                          placeholder="Your Name"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="group">
+                      <label className="block text-sm font-medium mb-2">
+                        Email
+                      </label>
+                      <div className="relative">
+                        <Mail
+                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                          size={20}
+                        />
+                        <input
+                          type="email"
+                          name="email"
+                          // value={formData.email}
+                          // onChange={handleInputChange}
+                          ref={emailRef}
+                          required
+                          className={`w-full pl-12 pr-4 py-3 rounded-xl border transition-all focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                            darkMode
+                              ? "bg-gray-700 border-gray-600 text-white"
+                              : "bg-gray-50 border-gray-300"
+                          }`}
+                          placeholder="your.email@example.com"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="group">
+                    <label className="block text-sm font-medium mb-2">
+                      Message
+                    </label>
+                    <div className="relative">
+                      <MessageSquare
+                        className="absolute left-3 top-4 text-gray-400"
+                        size={20}
+                      />
+                      <textarea
+                        name="message"
+                        // value={formData.message}
+                        // onChange={handleInputChange}
+                        ref={messageRef}
+                        required
+                        rows={6}
+                        className={`w-full pl-12 pr-4 py-3 rounded-xl border transition-all focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none ${
+                          darkMode
+                            ? "bg-gray-700 border-gray-600 text-white"
+                            : "bg-gray-50 border-gray-300"
+                        }`}
+                        placeholder="Tell me about your project or just say hello!"
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={formStatus === "sending"}
+                    className="w-full py-4 px-6 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-semibold transition-all transform hover:scale-[1.02] hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {formStatus === "sending" ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        Sending...
+                      </>
+                    ) : formStatus === "success" ? (
+                      <>
+                        <CheckCircle size={20} />
+                        Message Sent!
+                      </>
+                    ) : (
+                      <>
+                        <Send size={20} />
+                        Send Message
+                      </>
+                    )}
+                  </button>
+                </form>
+
+                {formStatus === "success" && (
+                  <div className="mt-4 p-4 bg-green-500/20 border border-green-500/30 rounded-xl text-center">
+                    <p className="text-green-400">
+                      Thank you for your message! I'll get back to you soon.
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </ScrollReveal>
         </div>
