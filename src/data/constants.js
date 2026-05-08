@@ -40,11 +40,11 @@ export const experiences = [
     ],
   },
   {
-    title: "Chief Operating Officer",
+    title: "Manager & Operations Lead",
     company: "Sea View Apparels",
     icon: Briefcase,
     location: "Chattogram, Bangladesh",
-    period: "2022 - Present",
+    period: "2022 - 2026",
     points: [
       "Managed operations, budgeting, and client relationships for a garment accessories company.",
       "Supported planning and digital growth initiatives.",
@@ -195,9 +195,9 @@ export const projects = [
 
 export const stats = [
   { label: "Problems Solved", value: 700, icon: Code, suffix: "+" },
-  { label: "Projects", value: 25, icon: Code, suffix: "+" },
+  { label: "Projects", value: 25, icon: Github, suffix: "+" },
   { label: "Codeforces Rating", value: 1000, icon: Trophy, suffix: "+" },
-  { label: "Languages Known", value: 6, icon: Code, suffix: "+" },
+  { label: "Languages Known", value: 6, icon: Zap, suffix: "+" },
 ];
 
 export const skills = {
