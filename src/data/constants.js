@@ -6,15 +6,14 @@ import eventImg from "../assets/event_management.png";
 
 export const experiences = [
   {
-    title: "Competitive Programming Mentor",
+    title: "Joint General Secretary Of Competitive Programming",
     company: "PCIU Computer Club - CP Wing",
     icon: Code,
     location: "Chattogram, Bangladesh",
     period: "2024 - Present",
     points: [
-      "Mentor junior programmers in problem-solving and competitive programming techniques",
-      "Conduct weekly coding contests and technical workshops",
-      "Represent the university in inter-university programming competitions",
+      "Organized 11 coding contests with 300+ participants, created 52 algorithmic problems, and mentored 50+ students achieving consistent rating improvements, increasing club participation by 40%.",
+      "Coordinated training initiatives contributing to PCIU securing 2 ICPC Dhaka Regional slots in 2025.",
     ],
   },
   {
