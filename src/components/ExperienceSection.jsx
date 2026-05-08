@@ -8,7 +8,7 @@ const ExperienceSection = ({ darkMode, experiences }) => {
       <div className="max-w-7xl mx-auto">
         <ScrollReveal>
           <h2 className="text-5xl font-bold mb-16 text-center bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-            Leadership & Experience
+            Professional Experience  
           </h2>
         </ScrollReveal>
         <div className="space-y-8">

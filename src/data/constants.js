@@ -1,4 +1,14 @@
-import { Code, Briefcase, Award, Zap, Trophy, Github, Linkedin, Twitter, Facebook } from "lucide-react";
+import {
+  Code,
+  Briefcase,
+  Award,
+  Zap,
+  Trophy,
+  Github,
+  Linkedin,
+  Twitter,
+  Facebook,
+} from "lucide-react";
 import tuitionImg from "../assets/tuition-media.png";
 import krishokImg from "../assets/Krishok_bhai.png";
 import phiImg from "../assets/phi-mart.png";
@@ -6,14 +16,14 @@ import eventImg from "../assets/event_management.png";
 
 export const experiences = [
   {
-    title: "Joint General Secretary Of Competitive Programming",
-    company: "PCIU Computer Club - CP Wing",
-    icon: Code,
-    location: "Chattogram, Bangladesh",
-    period: "2024 - Present",
+    title: "Founder & Brand Developer",
+    company: "Layven",
+    icon: Briefcase,
+    location: "Bangladesh",
+    period: "2025 - Present",
     points: [
-      "Organized 11 coding contests with 300+ participants, created 52 algorithmic problems, and mentored 50+ students achieving consistent rating improvements, increasing club participation by 40%.",
-      "Coordinated training initiatives contributing to PCIU securing 2 ICPC Dhaka Regional slots in 2025.",
+      "Building a modern apparel brand focused on sweaters, leather jackets, and T-shirts with a premium, luxury-inspired fashion identity.",
+      "Managing branding, product planning, supplier coordination, and digital marketing strategies for scalable e-commerce growth.",
     ],
   },
   {
@@ -30,15 +40,25 @@ export const experiences = [
     ],
   },
   {
-    title: "C++ Bootcamp Instructor",
-    company: "PCIU",
-    icon: Award,
+    title: "Chief Operating Officer",
+    company: "Sea View Apparels",
+    icon: Briefcase,
     location: "Chattogram, Bangladesh",
-    period: "2024 - Present",
+    period: "2022 - Present",
     points: [
-      "Teach fundamental and advanced C++ concepts to students",
-      "Design and conduct hands-on coding exercises and assessments",
-      "Guide students through data structures and algorithm design",
+      "Managed operations, budgeting, and client relationships for a garment accessories company.",
+      "Supported planning and digital growth initiatives.",
+    ],
+  },
+  {
+    title: "Marketing Manager",
+    company: "Foysal Enterprise",
+    icon: Briefcase,
+    location: "Chattogram, Bangladesh",
+    period: "2020 - 2021",
+    points: [
+      "Conducted market analysis and executed growth campaigns.",
+      "Coordinated with sales, logistics, and finance teams to streamline operations.",
     ],
   },
 ];
@@ -51,9 +71,25 @@ export const projects = [
     description:
       "Full-stack tutor-student marketplace platform connecting learners with qualified tutors. Features real-time messaging, appointment scheduling, and tutor profile management.",
     image: tuitionImg,
-    features: ["Tutor Discovery", "Real-time Messaging", "Appointment Scheduling", "Reviews & Ratings", "Payment Processing"],
-    challenges: ["Building real-time messaging system at scale", "Implementing secure video call integration", "Managing complex tutor availability and scheduling", "Ensuring tutor verification and authenticity"],
-    futurePlans: ["Integrate video conferencing for live sessions", "Add AI-powered tutor matching algorithm", "Build mobile app for iOS and Android", "Implement group sessions and batch classes"],
+    features: [
+      "Tutor Discovery",
+      "Real-time Messaging",
+      "Appointment Scheduling",
+      "Reviews & Ratings",
+      "Payment Processing",
+    ],
+    challenges: [
+      "Building real-time messaging system at scale",
+      "Implementing secure video call integration",
+      "Managing complex tutor availability and scheduling",
+      "Ensuring tutor verification and authenticity",
+    ],
+    futurePlans: [
+      "Integrate video conferencing for live sessions",
+      "Add AI-powered tutor matching algorithm",
+      "Build mobile app for iOS and Android",
+      "Implement group sessions and batch classes",
+    ],
     github: "https://github.com/Kamrul785/tuition-hub",
     live: "https://tuition-hub-client.vercel.app/",
     color: "from-indigo-500 to-purple-500",
@@ -61,13 +97,36 @@ export const projects = [
   {
     id: 2,
     title: "Krishok Bhai – AI Farming Ally",
-    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Gemini 2.5 Flash", "Twilio", "Clerk"],
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Gemini 2.5 Flash",
+      "Twilio",
+      "Clerk",
+    ],
     description:
       "AI-powered agricultural advisory platform providing crop disease detection, farming insights, and bilingual voice interface. Integrating Google Gemini 2.5 Flash API for intelligent farming recommendations targeting 14M+ farmers in Bangladesh.",
     image: krishokImg,
-    features: ["Crop Disease Detection", "AI Agricultural Analytics", "Bilingual Voice Interface", "Real-time Guidance", "Accessible Chatbot"],
-    challenges: ["Integrating Google Gemini 2.5 Flash API for accurate disease detection", "Implementing bilingual voice interface with Twilio and browser speech recognition", "Handling agricultural data for diverse crop types", "Ensuring accessibility for non-tech-savvy farmers"],
-    futurePlans: ["Expand to multiple crop types and regions", "Add weather forecasting integration", "Implement farmer community forum", "Mobile app for offline access"],
+    features: [
+      "Crop Disease Detection",
+      "AI Agricultural Analytics",
+      "Bilingual Voice Interface",
+      "Real-time Guidance",
+      "Accessible Chatbot",
+    ],
+    challenges: [
+      "Integrating Google Gemini 2.5 Flash API for accurate disease detection",
+      "Implementing bilingual voice interface with Twilio and browser speech recognition",
+      "Handling agricultural data for diverse crop types",
+      "Ensuring accessibility for non-tech-savvy farmers",
+    ],
+    futurePlans: [
+      "Expand to multiple crop types and regions",
+      "Add weather forecasting integration",
+      "Implement farmer community forum",
+      "Mobile app for offline access",
+    ],
     github: "https://github.com/Kamrul785/krishok-bhai",
     live: "https://krishok-bhai.vercel.app",
     color: "from-green-500 to-emerald-500",
@@ -79,9 +138,25 @@ export const projects = [
     description:
       "Full-stack e-commerce platform with product catalog, cart, checkout, and order management. Built with Django backend and React frontend.",
     image: phiImg,
-    features: ["Product Catalog", "Shopping Cart", "Order Management", "User Authentication", "Payment Integration"],
-    challenges: ["Implementing real-time inventory management across distributed systems", "Optimizing database queries for high-traffic scenarios", "Ensuring secure payment gateway integration", "Managing user session authentication and authorization"],
-    futurePlans: ["Implement AI-powered product recommendations", "Add multi-currency and multi-language support", "Integrate with advanced analytics dashboard", "Mobile app development for iOS and Android"],
+    features: [
+      "Product Catalog",
+      "Shopping Cart",
+      "Order Management",
+      "User Authentication",
+      "Payment Integration",
+    ],
+    challenges: [
+      "Implementing real-time inventory management across distributed systems",
+      "Optimizing database queries for high-traffic scenarios",
+      "Ensuring secure payment gateway integration",
+      "Managing user session authentication and authorization",
+    ],
+    futurePlans: [
+      "Implement AI-powered product recommendations",
+      "Add multi-currency and multi-language support",
+      "Integrate with advanced analytics dashboard",
+      "Mobile app development for iOS and Android",
+    ],
     github: "https://github.com/Kamrul785/PhiMart",
     live: "https://phi-mart-client-lemon.vercel.app/",
     color: "from-blue-500 to-cyan-500",
@@ -93,9 +168,25 @@ export const projects = [
     description:
       "Multi-role access system with RBAC, email verification, media handling, and full CRUD operations for events.",
     image: eventImg,
-    features: ["RBAC", "Email Verification", "RSVP System", "Event Dashboards", "Media Upload"],
-    challenges: ["Implementing role-based access control with fine-grained permissions", "Email verification and notification system scalability", "Handling large media file uploads and storage", "Managing concurrent event registrations"],
-    futurePlans: ["Ticket generation and QR code scanning", "Integration with payment gateways", "Virtual and hybrid event support", "Advanced attendee analytics and reporting"],
+    features: [
+      "RBAC",
+      "Email Verification",
+      "RSVP System",
+      "Event Dashboards",
+      "Media Upload",
+    ],
+    challenges: [
+      "Implementing role-based access control with fine-grained permissions",
+      "Email verification and notification system scalability",
+      "Handling large media file uploads and storage",
+      "Managing concurrent event registrations",
+    ],
+    futurePlans: [
+      "Ticket generation and QR code scanning",
+      "Integration with payment gateways",
+      "Virtual and hybrid event support",
+      "Advanced attendee analytics and reporting",
+    ],
     github: "https://github.com/Kamrul785/event_management",
     live: "https://event-management-six-lime.vercel.app/",
     color: "from-green-500 to-teal-500",
@@ -111,13 +202,25 @@ export const stats = [
 
 export const skills = {
   Languages: ["Python", "C++", "C", "JavaScript", "SQL", "HTML", "CSS"],
-  Frontend: ["React.js", "Next.js", "Tailwind CSS", "Bootstrap", "JavaScript (ES6+)"],
+  Frontend: [
+    "React.js",
+    "Next.js",
+    "Tailwind CSS",
+    "Bootstrap",
+    "JavaScript (ES6+)",
+  ],
   Backend: ["Django", "Django REST Framework", "JWT Auth", "Node.js", "PHP"],
   Databases: ["PostgreSQL", "MySQL", "SQLite", "Supabase"],
   "AI/ML": ["Google Gemini API", "OpenAI API", "Hugging Face", "PyTorch"],
   "DevOps & Tools": ["Git", "Vercel", "REST APIs", "Swagger/Redoc"],
   "Payment Integration": ["SSLCommerz"],
-  Core: ["Data Structures & Algorithms", "OOP", "System Design", "API Development", "Database Optimization"],
+  Core: [
+    "Data Structures & Algorithms",
+    "OOP",
+    "System Design",
+    "API Development",
+    "Database Optimization",
+  ],
 };
 
 export const cpProfiles = [
@@ -166,7 +269,15 @@ export const navigation = [
 
 export const socialLinks = [
   { icon: Github, href: "https://github.com/Kamrul785", label: "GitHub" },
-  { icon: Linkedin, href: "https://www.linkedin.com/in/khandokarkamrulhasan", label: "LinkedIn" },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/khandokarkamrulhasan",
+    label: "LinkedIn",
+  },
   { icon: Twitter, href: "https://twitter.com/yourhandle", label: "Twitter" },
-  { icon: Facebook, href: "https://facebook.com/yourprofile", label: "Facebook" },
+  {
+    icon: Facebook,
+    href: "https://facebook.com/yourprofile",
+    label: "Facebook",
+  },
 ];

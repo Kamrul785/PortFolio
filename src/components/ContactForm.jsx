@@ -12,8 +12,13 @@ const ContactForm = ({ darkMode }) => {
 
   useEffect(() => {
     // initialize EmailJS if key is present
-    if (import.meta.env.EMAILJS_PUBLIC_KEY) {
-      emailjs.init(import.meta.env.EMAILJS_PUBLIC_KEY);
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || import.meta.env.VITE_EMAILJS_PUBLIC;
+    if (publicKey) {
+      try {
+        emailjs.init(publicKey);
+      } catch (e) {
+        console.error("EmailJS init error:", e);
+      }
     }
   }, []);
 
@@ -25,18 +30,26 @@ const ContactForm = ({ darkMode }) => {
     const email = emailRef.current.value;
     const message = messageRef.current.value;
 
+    // Use Vite-prefixed env vars (VITE_*) so they are available in the bundle
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || import.meta.env.VITE_EMAILJS_SERVICE;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || import.meta.env.VITE_EMAILJS_TEMPLATE;
+    const toEmail = import.meta.env.VITE_EMAIL_TO || "kamrulkhan526785@gmail.com";
+
+    if (!serviceId || !templateId) {
+      console.error("EmailJS missing service/template id", { serviceId, templateId });
+      setFormStatus("error");
+      setTimeout(() => setFormStatus(""), 3000);
+      return;
+    }
+
     try {
-      await emailjs.send(
-        import.meta.env.EMAILJS_SERVICE_ID,
-        import.meta.env.EMAILJS_TEMPLATE_ID,
-        {
-          to_email: import.meta.env.VITE_EMAIL_TO || "kamrulkhan526785@gmail.com",
-          from_name: name,
-          from_email: email,
-          message: message,
-          reply_to: email,
-        }
-      );
+      await emailjs.send(serviceId, templateId, {
+        to_email: toEmail,
+        from_name: name,
+        from_email: email,
+        message: message,
+        reply_to: email,
+      });
 
       nameRef.current.value = "";
       emailRef.current.value = "";
