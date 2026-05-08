@@ -1,4 +1,8 @@
 import { Code, Briefcase, Award, Zap, Trophy, Github, Linkedin, Twitter, Facebook } from "lucide-react";
+import tuitionImg from "../assets/tuition-media.png";
+import krishokImg from "../assets/Krishok_bhai.png";
+import phiImg from "../assets/phi-mart.png";
+import eventImg from "../assets/event_management.png";
 
 export const experiences = [
   {
@@ -47,7 +51,7 @@ export const projects = [
     tech: ["React.js", "Django", "PostgreSQL", "Tailwind CSS", "JavaScript"],
     description:
       "Full-stack tutor-student marketplace platform connecting learners with qualified tutors. Features real-time messaging, appointment scheduling, and tutor profile management.",
-    image: "/src/assets/tuition-media.png",
+    image: tuitionImg,
     features: ["Tutor Discovery", "Real-time Messaging", "Appointment Scheduling", "Reviews & Ratings", "Payment Processing"],
     challenges: ["Building real-time messaging system at scale", "Implementing secure video call integration", "Managing complex tutor availability and scheduling", "Ensuring tutor verification and authenticity"],
     futurePlans: ["Integrate video conferencing for live sessions", "Add AI-powered tutor matching algorithm", "Build mobile app for iOS and Android", "Implement group sessions and batch classes"],
@@ -61,7 +65,7 @@ export const projects = [
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Gemini 2.5 Flash", "Twilio", "Clerk"],
     description:
       "AI-powered agricultural advisory platform providing crop disease detection, farming insights, and bilingual voice interface. Integrating Google Gemini 2.5 Flash API for intelligent farming recommendations targeting 14M+ farmers in Bangladesh.",
-    image: "/src/assets/Krishok_bhai.png",
+    image: krishokImg,
     features: ["Crop Disease Detection", "AI Agricultural Analytics", "Bilingual Voice Interface", "Real-time Guidance", "Accessible Chatbot"],
     challenges: ["Integrating Google Gemini 2.5 Flash API for accurate disease detection", "Implementing bilingual voice interface with Twilio and browser speech recognition", "Handling agricultural data for diverse crop types", "Ensuring accessibility for non-tech-savvy farmers"],
     futurePlans: ["Expand to multiple crop types and regions", "Add weather forecasting integration", "Implement farmer community forum", "Mobile app for offline access"],
@@ -75,7 +79,7 @@ export const projects = [
     tech: ["Django", "React.js", "DRF", "JavaScript", "PostgreSQL"],
     description:
       "Full-stack e-commerce platform with product catalog, cart, checkout, and order management. Built with Django backend and React frontend.",
-    image: "/src/assets/phi-mart.png",
+    image: phiImg,
     features: ["Product Catalog", "Shopping Cart", "Order Management", "User Authentication", "Payment Integration"],
     challenges: ["Implementing real-time inventory management across distributed systems", "Optimizing database queries for high-traffic scenarios", "Ensuring secure payment gateway integration", "Managing user session authentication and authorization"],
     futurePlans: ["Implement AI-powered product recommendations", "Add multi-currency and multi-language support", "Integrate with advanced analytics dashboard", "Mobile app development for iOS and Android"],
@@ -89,7 +93,7 @@ export const projects = [
     tech: ["Django", "Python", "Tailwind CSS", "JavaScript", "SMTP"],
     description:
       "Multi-role access system with RBAC, email verification, media handling, and full CRUD operations for events.",
-    image: "/src/assets/event_management.png",
+    image: eventImg,
     features: ["RBAC", "Email Verification", "RSVP System", "Event Dashboards", "Media Upload"],
     challenges: ["Implementing role-based access control with fine-grained permissions", "Email verification and notification system scalability", "Handling large media file uploads and storage", "Managing concurrent event registrations"],
     futurePlans: ["Ticket generation and QR code scanning", "Integration with payment gateways", "Virtual and hybrid event support", "Advanced attendee analytics and reporting"],
