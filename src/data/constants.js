@@ -111,12 +111,14 @@ export const stats = [
 ];
 
 export const skills = {
-  Languages: ["C++", "C", "Python", "JavaScript"],
-  Frontend: ["React.js", "Tailwind CSS", "Bootstrap", "HTML/CSS"],
-  Backend: ["Django", "Django REST Framework", "Node.js", "PHP"],
-  Databases: ["MySQL", "PostgreSQL", "SQLite"],
-  Tools: ["Git", "VS Code", "Postman", "GitHub"],
-  Core: ["Data Structures", "Algorithms", "OOP", "Problem Solving"],
+  Languages: ["Python", "C++", "C", "JavaScript", "SQL", "HTML", "CSS"],
+  Frontend: ["React.js", "Next.js", "Tailwind CSS", "Bootstrap", "JavaScript (ES6+)"],
+  Backend: ["Django", "Django REST Framework", "JWT Auth", "Node.js", "PHP"],
+  Databases: ["PostgreSQL", "MySQL", "SQLite", "Supabase"],
+  "AI/ML": ["Google Gemini API", "OpenAI API", "Hugging Face", "PyTorch"],
+  "DevOps & Tools": ["Git", "Vercel", "REST APIs", "Swagger/Redoc"],
+  "Payment Integration": ["SSLCommerz"],
+  Core: ["Data Structures & Algorithms", "OOP", "System Design", "API Development", "Database Optimization"],
 };
 
 export const cpProfiles = [
