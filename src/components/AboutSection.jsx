@@ -227,7 +227,7 @@ const AboutSection = ({ darkMode, cpProfiles }) => {
 
           <ScrollReveal delay={300}>
             <p className="text-center mt-8 text-xl text-gray-400">
-              <span className="text-blue-500 font-bold">500+</span> problems
+              <span className="text-blue-500 font-bold">700+</span> problems
               solved across multiple online judges
             </p>
           </ScrollReveal>

@@ -58,9 +58,19 @@ const Portfolio = () => {
       setActiveSection(sectionId);
       setMenuOpen(false);
       setIsManualClick(true);
-      
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
-      
+
+      // Use offset-based scroll so fixed navbar doesn't block target sections on mobile.
+      const NAV_OFFSET = 96;
+      const scrollToSection = () => {
+        const top = section.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      };
+
+      // Give the mobile menu a frame to close before scrolling.
+      requestAnimationFrame(() => {
+        setTimeout(scrollToSection, 80);
+      });
+
       // Re-enable auto-detection after scroll completes
       setTimeout(() => setIsManualClick(false), 1000);
     }

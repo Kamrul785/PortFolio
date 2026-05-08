@@ -194,10 +194,10 @@ export const projects = [
 ];
 
 export const stats = [
-  { label: "Problems Solved", value: 500, icon: Code, suffix: "+" },
+  { label: "Problems Solved", value: 700, icon: Code, suffix: "+" },
   { label: "Projects", value: 25, icon: Code, suffix: "+" },
   { label: "Codeforces Rating", value: 1000, icon: Trophy, suffix: "+" },
-  { label: "Languages Known", value: 10, icon: Code, suffix: "+" },
+  { label: "Languages Known", value: 6, icon: Code, suffix: "+" },
 ];
 
 export const skills = {

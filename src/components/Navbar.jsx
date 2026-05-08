@@ -133,9 +133,9 @@ const Navbar = ({
             >
               <div className="px-4 pb-4 pt-3 space-y-2">
                 {navigation.map((item) => (
-                  <a
+                  <button
                     key={item.id}
-                    href={`#${item.id}`}
+                    type="button"
                     onClick={(e) => handleNavClick(e, item.id)}
                     className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                       activeSection === item.id
@@ -148,7 +148,7 @@ const Navbar = ({
                     }`}
                   >
                     {item.label}
-                  </a>
+                  </button>
                 ))}
               </div>
             </motion.div>

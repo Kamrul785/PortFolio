@@ -9,6 +9,7 @@ const ContactForm = ({ darkMode }) => {
   const emailRef = useRef(null);
   const messageRef = useRef(null);
   const [formStatus, setFormStatus] = useState("");
+  const [statusMessage, setStatusMessage] = useState("");
 
   useEffect(() => {
     // initialize EmailJS if key is present
@@ -25,6 +26,7 @@ const ContactForm = ({ darkMode }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setFormStatus("sending");
+    setStatusMessage("Sending your message...");
 
     const name = nameRef.current.value;
     const email = emailRef.current.value;
@@ -38,6 +40,7 @@ const ContactForm = ({ darkMode }) => {
     if (!serviceId || !templateId) {
       console.error("EmailJS missing service/template id", { serviceId, templateId });
       setFormStatus("error");
+      setStatusMessage("Email service is not configured. Please contact directly via email.");
       setTimeout(() => setFormStatus(""), 3000);
       return;
     }
@@ -56,10 +59,12 @@ const ContactForm = ({ darkMode }) => {
       messageRef.current.value = "";
 
       setFormStatus("success");
+      setStatusMessage("Thank you for your message! I'll get back to you soon.");
       setTimeout(() => setFormStatus(""), 3000);
     } catch (err) {
       console.error("Contact form error", err);
       setFormStatus("error");
+      setStatusMessage("Could not send message right now. Please try again in a moment.");
       setTimeout(() => setFormStatus(""), 3000);
     }
   };
@@ -130,7 +135,7 @@ const ContactForm = ({ darkMode }) => {
                   {formStatus === "sending" ? (
                     <>
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Sending...
+                      Sending Message...
                     </>
                   ) : formStatus === "success" ? (
                     <>
@@ -148,7 +153,13 @@ const ContactForm = ({ darkMode }) => {
 
               {formStatus === "success" && (
                 <div className="mt-4 p-4 bg-green-500/20 border border-green-500/30 rounded-xl text-center">
-                  <p className="text-green-400">Thank you for your message! I'll get back to you soon.</p>
+                  <p className="text-green-400">{statusMessage}</p>
+                </div>
+              )}
+
+              {formStatus === "error" && (
+                <div className="mt-4 p-4 bg-red-500/20 border border-red-500/30 rounded-xl text-center">
+                  <p className="text-red-300">{statusMessage || "Message could not be sent."}</p>
                 </div>
               )}
             </div>

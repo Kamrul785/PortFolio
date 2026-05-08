@@ -24,9 +24,9 @@ export const achievements = [
   },
   {
     title: "Competitive Programming",
-    description: "CodeChef 2-star (1486), Codeforces (1029), 500+ problems solved",
+    description: "CodeChef 2-star (1486), Codeforces (1029), 700+ problems solved",
     icon: Target,
     color: "from-green-500 to-emerald-500",
-    highlight: "500+ problems solved",
+    highlight: "700+ problems solved",
   },
 ];
